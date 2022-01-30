@@ -8,14 +8,6 @@ data class DailyTempDto (
     @Expose
     var day: Double,
 
-    @SerializedName("min")
-    @Expose
-    var min: Double,
-
-    @SerializedName("max")
-    @Expose
-    var max: Double,
-
     @SerializedName("night")
     @Expose
     var night: Double,

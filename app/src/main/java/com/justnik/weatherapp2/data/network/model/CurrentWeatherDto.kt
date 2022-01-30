@@ -8,6 +8,10 @@ data class CurrentWeatherDto(
     @Expose
     var id: Int,
 
+    @SerializedName("description")
+    @Expose
+    val description: String,
+
     @SerializedName("icon")
     @Expose
     var icon: String
