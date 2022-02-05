@@ -1,4 +1,4 @@
-package com.justnik.weatherapp2.domain
+package com.justnik.weatherapp2.domain.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

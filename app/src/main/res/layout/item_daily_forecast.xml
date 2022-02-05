@@ -7,7 +7,7 @@
     <data>
         <variable
             name="cityWeather"
-            type="com.justnik.weatherapp2.domain.CityWeather" />
+            type="com.justnik.weatherapp2.domain.entities.CityWeather" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

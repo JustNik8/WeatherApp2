@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.justnik.weatherapp2.databinding.ItemCityBinding
-import com.justnik.weatherapp2.domain.CityWeather
+import com.justnik.weatherapp2.domain.entities.CityWeather
 
 class CityListAdapter(private val context: Context) :
     ListAdapter<CityWeather, CityViewHolder>(CityWeatherDiffUtil) {

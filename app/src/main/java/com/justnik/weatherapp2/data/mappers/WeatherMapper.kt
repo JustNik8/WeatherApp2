@@ -4,26 +4,36 @@ import android.content.Context
 import android.location.Geocoder
 import android.util.Log
 import com.justnik.weatherapp2.R
+import com.justnik.weatherapp2.data.database.model.CityWeatherDbModel
+import com.justnik.weatherapp2.data.database.model.CityWeatherWithDailyWeather
+import com.justnik.weatherapp2.data.database.model.DailyWeatherDbModel
 import com.justnik.weatherapp2.data.network.model.WeatherInfoDto
-import com.justnik.weatherapp2.domain.CityWeather
-import com.justnik.weatherapp2.domain.DailyWeather
+import com.justnik.weatherapp2.domain.entities.CityWeather
+import com.justnik.weatherapp2.domain.entities.DailyWeather
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
 class WeatherMapper(private val context: Context) {
     fun mapDtoToEntity(dto: WeatherInfoDto): CityWeather {
-        val geocoder = Geocoder(context)
-        val addresses = geocoder.getFromLocation(dto.lat, dto.lon, 1)
-        val cityName = addresses.first().locality
 
         return CityWeather(
-            cityName = cityName,
+            cityName = getCityNameFromCoordinates(dto.lat, dto.lon),
             currentTemp = getFormattedTemp(dto.current.temp),
             currentWeatherDescription = dto.current.weather[0].description.capitalize(),
             currentWeatherIconURL = getIconURLById(dto.current.weather[0].icon),
             dailyWeather = convertDailyDtoToDailyTemp(dto)
         )
+    }
+
+    fun mapDtoToCityWeatherWithDailyWeather(dto: WeatherInfoDto) {
+        val cityWeatherDbModel = CityWeatherDbModel(
+            cityName = getCityNameFromCoordinates(dto.lat, dto.lon),
+            currentTemp = dto.current.temp.roundToInt(),
+            currentWeatherDescription = dto.current.weather[0].description.capitalize(),
+            currentWeatherIconURL = getIconURLById(dto.current.weather[0].icon)
+        )
+        val dailyWeatherDbModels: List<DailyWeatherDbModel> = mutableListOf()
     }
 
     private fun getFormattedTemp(temp: Double): String {
@@ -59,6 +69,13 @@ class WeatherMapper(private val context: Context) {
         }
 
         return dailyWeatherList
+    }
+
+    private fun getCityNameFromCoordinates(lat: Double, lon: Double): String {
+        val geocoder = Geocoder(context)
+        val addresses = geocoder.getFromLocation(lat, lon, 1)
+        val cityName = addresses.first().locality
+        return cityName
     }
 
     private fun getFormattedDate(stampInMillis: Long): String {

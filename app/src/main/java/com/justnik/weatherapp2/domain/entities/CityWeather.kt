@@ -1,4 +1,4 @@
-package com.justnik.weatherapp2.domain
+package com.justnik.weatherapp2.domain.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -11,5 +11,5 @@ data class CityWeather (
     val currentWeatherDescription: String,
     val currentWeatherIconURL: String,
 
-    val dailyWeather: List<DailyWeather>,
+    val dailyWeather: List<DailyWeather>
 ) : Parcelable
