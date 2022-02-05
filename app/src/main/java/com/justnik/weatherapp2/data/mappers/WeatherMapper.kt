@@ -10,6 +10,7 @@ import com.justnik.weatherapp2.data.database.model.DailyWeatherDbModel
 import com.justnik.weatherapp2.data.network.model.WeatherInfoDto
 import com.justnik.weatherapp2.domain.entities.CityWeather
 import com.justnik.weatherapp2.domain.entities.DailyWeather
+import com.justnik.weatherapp2.extensions.titleCaseFirstChar
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -20,7 +21,7 @@ class WeatherMapper(private val context: Context) {
         val cityWeatherDbModel = CityWeatherDbModel(
             cityName = getCityNameFromCoordinates(dto.lat, dto.lon),
             currentTemp = dto.current.temp.roundToInt(),
-            currentWeatherDescription = dto.current.weather[0].description.capitalize(),
+            currentWeatherDescription = dto.current.weather[0].description.titleCaseFirstChar(),
             currentWeatherIconURL = getIconURLById(dto.current.weather[0].icon)
         )
         val dailyWeatherDbModels: List<DailyWeatherDbModel> =
@@ -124,9 +125,9 @@ class WeatherMapper(private val context: Context) {
         val sdf = SimpleDateFormat(pattern, Locale.getDefault())
         Log.d(
             "getFormattedDate",
-            "${cal.timeInMillis} ${cal.time} ${sdf.format(cal.time).capitalize()}"
+            "${cal.timeInMillis} ${cal.time} ${sdf.format(cal.time).titleCaseFirstChar()}"
         )
-        return sdf.format(cal.time).capitalize()
+        return sdf.format(cal.time).titleCaseFirstChar()
     }
 
     companion object {

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.justnik.weatherapp2.data.database.AppDatabase
+import com.justnik.weatherapp2.data.database.model.CityWeatherMainInfoTuple
 import com.justnik.weatherapp2.data.mappers.WeatherMapper
 import com.justnik.weatherapp2.data.network.model.WeatherInfoDto
 import com.justnik.weatherapp2.domain.WeatherRepository
