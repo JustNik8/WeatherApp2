@@ -5,8 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.justnik.weatherapp2.data.database.model.CityWeatherDbModel
+import com.justnik.weatherapp2.data.database.model.DailyWeatherDbModel
 
-@Database(entities = [CityWeatherDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [
+    CityWeatherDbModel::class,
+    DailyWeatherDbModel::class],
+    version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
 

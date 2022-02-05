@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.justnik.weatherapp2.R
 import com.justnik.weatherapp2.data.mappers.WeatherMapper
 import com.justnik.weatherapp2.data.network.ApiFactory
@@ -25,6 +26,10 @@ class CitiesListFragment : Fragment() {
     private var _binding: FragmentCitiesListBinding? = null
     private val binding
         get() = _binding!!
+
+    private val viewModel: WeatherViewModel by lazy {
+        ViewModelProvider(this)[WeatherViewModel::class.java]
+    }
 
     private val rvAdapter: CityListAdapter by lazy {
         CityListAdapter(requireContext())
@@ -43,6 +48,7 @@ class CitiesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupCityRecyclerView()
         setupToolbar()
+        observeViewModel()
     }
 
     private fun setupCityRecyclerView() {
@@ -50,6 +56,12 @@ class CitiesListFragment : Fragment() {
 
         rvAdapter.onCityItemClickListener = {
             onCityClickListener?.onCityClick(it)
+        }
+    }
+
+    private fun observeViewModel(){
+        viewModel.getCityWeatherList().observe(viewLifecycleOwner) {
+            rvAdapter.submitList(it)
         }
     }
 
@@ -61,6 +73,7 @@ class CitiesListFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 p0?.let {
+                    viewModel.insertWeatherByCityName(p0)
                     menuItem.collapseActionView()
                     return true
                 }

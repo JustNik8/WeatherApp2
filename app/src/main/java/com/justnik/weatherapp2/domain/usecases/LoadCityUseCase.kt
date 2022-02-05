@@ -3,28 +3,29 @@ package com.justnik.weatherapp2.domain.usecases
 import android.content.Context
 import android.location.Geocoder
 import android.util.Log
+import androidx.core.content.contentValuesOf
+import com.justnik.weatherapp2.data.database.AppDatabase
 import com.justnik.weatherapp2.data.mappers.WeatherMapper
 import com.justnik.weatherapp2.data.network.ApiFactory
+import com.justnik.weatherapp2.data.network.model.WeatherInfoDto
+import com.justnik.weatherapp2.domain.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoadCityUseCase {
-    val scope = CoroutineScope(Dispatchers.Default)
-    operator fun invoke(context: Context, cityName: String){
-        val geocoder = Geocoder(context)
-        val addresses = geocoder.getFromLocationName(cityName, 1)
+class LoadCityUseCase(private val repository: WeatherRepository, private val context: Context) {
+    private val scope = CoroutineScope(Dispatchers.Default)
 
-        val lat = addresses.first().latitude
-        val lon = addresses.first().longitude
+    operator fun invoke(cityName: String){
+        val geocoder = Geocoder(context)
+        val address = geocoder.getFromLocationName(cityName, 1)[0]
+        val latitude = address.latitude
+        val longitude = address.longitude
 
         scope.launch {
-            val weatherInfoDto = ApiFactory.apiService.getWeatherByCoordinates(lat, lon)
-            val cityWeather = WeatherMapper(context).mapDtoToEntity(weatherInfoDto)
-            Log.d("cityWeather", cityWeather.toString())
-
-            TODO("load city to database")
-
+            val weatherInfoDto = ApiFactory.apiService.getWeatherByCoordinates(latitude, longitude)
+            repository.insertCityWeather(weatherInfoDto)
         }
     }
+
 }
