@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.justnik.weatherapp2.R
 import com.justnik.weatherapp2.databinding.ItemDailyForecastBinding
-import com.justnik.weatherapp2.domain.DailyWeather
+import com.justnik.weatherapp2.domain.entities.DailyWeather
 
 class DailyForecastAdapter(private val context: Context) :
     ListAdapter<DailyWeather, DailyForecastViewHolder>(DailyWeatherDiffUtil) {

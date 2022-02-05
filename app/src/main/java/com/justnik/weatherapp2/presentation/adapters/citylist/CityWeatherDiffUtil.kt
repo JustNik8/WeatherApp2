@@ -1,7 +1,7 @@
 package com.justnik.weatherapp2.presentation.adapters.citylist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.justnik.weatherapp2.domain.CityWeather
+import com.justnik.weatherapp2.domain.entities.CityWeather
 
 object CityWeatherDiffUtil : DiffUtil.ItemCallback<CityWeather>() {
     override fun areItemsTheSame(oldItem: CityWeather, newItem: CityWeather): Boolean {

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.justnik.weatherapp2.databinding.FragmentCityForecastBinding
-import com.justnik.weatherapp2.domain.CityWeather
+import com.justnik.weatherapp2.domain.entities.CityWeather
 import com.justnik.weatherapp2.presentation.adapters.dailyforecast.DailyForecastAdapter
 
 class CityForecastFragment : Fragment() {

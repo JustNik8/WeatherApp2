@@ -3,7 +3,7 @@ package com.justnik.weatherapp2.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.justnik.weatherapp2.R
-import com.justnik.weatherapp2.domain.CityWeather
+import com.justnik.weatherapp2.domain.entities.CityWeather
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

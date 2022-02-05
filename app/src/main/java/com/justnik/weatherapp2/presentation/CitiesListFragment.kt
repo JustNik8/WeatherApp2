@@ -13,7 +13,8 @@ import com.justnik.weatherapp2.R
 import com.justnik.weatherapp2.data.mappers.WeatherMapper
 import com.justnik.weatherapp2.data.network.ApiFactory
 import com.justnik.weatherapp2.databinding.FragmentCitiesListBinding
-import com.justnik.weatherapp2.domain.CityWeather
+import com.justnik.weatherapp2.domain.entities.CityWeather
+import com.justnik.weatherapp2.domain.entities.DailyWeather
 import com.justnik.weatherapp2.presentation.adapters.citylist.CityListAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,6 @@ class CitiesListFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val scope = CoroutineScope(Dispatchers.Main)
     private val rvAdapter: CityListAdapter by lazy {
         CityListAdapter(requireContext())
     }
@@ -53,21 +53,6 @@ class CitiesListFragment : Fragment() {
         }
     }
 
-    private fun loadCity(cityName: String) {
-        val geocoder = Geocoder(requireContext())
-        val addresses = geocoder.getFromLocationName(cityName, 1)
-
-        val lat = addresses.first().latitude
-        val lon = addresses.first().longitude
-
-        scope.launch {
-            val weatherInfoDto = ApiFactory.apiService.getWeatherByCoordinates(lat, lon)
-            val cityWeather = WeatherMapper(requireContext()).mapDtoToEntity(weatherInfoDto)
-            rvAdapter.submitList(mutableListOf(cityWeather))
-
-            Log.d("cityWeather", cityWeather.toString())
-        }
-    }
 
     private fun setupToolbar(){
         val menuItem = binding.mainToolbar.menu.findItem(R.id.action_search)
@@ -77,7 +62,6 @@ class CitiesListFragment : Fragment() {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 p0?.let {
                     menuItem.collapseActionView()
-                    loadCity(it)
                     return true
                 }
                 menuItem.collapseActionView()
