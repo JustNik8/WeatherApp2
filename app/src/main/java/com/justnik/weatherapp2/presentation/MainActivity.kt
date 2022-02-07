@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeCityItemClick(fragment: CitiesListFragment){
-        fragment.onCityClickListener = object : CitiesListFragment.OnCityClickListener{
+        fragment.onCityItemClickListener = object : CitiesListFragment.OnCityItemClickListener{
             override fun onCityClick(cityWeather: CityWeather) {
                 launchCityForecastFragment(cityWeather)
             }

@@ -35,7 +35,7 @@ class CitiesListFragment : Fragment() {
         CityListAdapter(requireContext())
     }
 
-    var onCityClickListener: OnCityClickListener? = null
+    var onCityItemClickListener: OnCityItemClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +55,7 @@ class CitiesListFragment : Fragment() {
         binding.rvCityList.adapter = rvAdapter
 
         rvAdapter.onCityItemClickListener = {
-            onCityClickListener?.onCityClick(it)
+            onCityItemClickListener?.onCityClick(it)
         }
             }
 
@@ -88,7 +88,7 @@ class CitiesListFragment : Fragment() {
         })
     }
 
-    interface OnCityClickListener{
+    interface OnCityItemClickListener{
         fun onCityClick(cityWeather: CityWeather)
     }
 
