@@ -14,11 +14,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoadCityUseCase(private val repository: WeatherRepository, private val context: Context) {
-    private val scope = CoroutineScope(Dispatchers.Default)
 
     operator fun invoke(cityName: String){
+        val scope = CoroutineScope(Dispatchers.Default)
+
         val geocoder = Geocoder(context)
         val address = geocoder.getFromLocationName(cityName, 1)[0]
+
         val latitude = address.latitude
         val longitude = address.longitude
 
