@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.justnik.weatherapp2.R
@@ -18,9 +19,15 @@ class CityForecastFragment : Fragment() {
     private val binding
         get() = _binding!!
 
+    var onDeleteCityListener: ((String) -> Unit)? = null
+
     private lateinit var cityWeather: CityWeather
     private val dailyAdapter: DailyForecastAdapter by lazy {
         DailyForecastAdapter(requireContext())
+    }
+
+    private val viewModel: WeatherViewModel by lazy {
+        ViewModelProvider(this)[WeatherViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +45,8 @@ class CityForecastFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupDailyForecastRV()
+        setUpToolBar()
+
         binding.cityWeather = cityWeather
         Glide.with(requireContext()).load(cityWeather.currentWeatherIconURL)
             .into(binding.ivCurrentWeather)
@@ -59,7 +68,7 @@ class CityForecastFragment : Fragment() {
     private fun setUpToolBar(){
         val deleteCityItem = binding.toolbarForecastCity.menu.findItem(R.id.action_delete_city)
         deleteCityItem.setOnMenuItemClickListener {
-
+            onDeleteCityListener?.invoke(cityWeather.cityName)
             true
         }
 
