@@ -9,6 +9,10 @@ data class CityWeatherDbModel (
     @PrimaryKey
     @ColumnInfo(name = "city_name")
     val cityName: String,
+    @ColumnInfo(name = "latitude")
+    val latitude: Double,
+    @ColumnInfo(name = "longitude")
+    val longitude: Double,
     @ColumnInfo(name = "current_temp")
     val currentTemp: Int,
     @ColumnInfo(name = "current_weather_description")

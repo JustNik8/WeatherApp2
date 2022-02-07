@@ -10,7 +10,7 @@ import com.justnik.weatherapp2.data.database.model.DailyWeatherDbModel
 @Database(entities = [
     CityWeatherDbModel::class,
     DailyWeatherDbModel::class],
-    version = 2, exportSchema = false)
+    version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
 

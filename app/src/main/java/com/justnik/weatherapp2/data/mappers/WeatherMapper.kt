@@ -20,6 +20,8 @@ class WeatherMapper(private val context: Context) {
     fun mapDtoToCityWeatherWithDailyWeather(dto: WeatherInfoDto): CityWeatherWithDailyWeather {
         val cityWeatherDbModel = CityWeatherDbModel(
             cityName = getCityNameFromCoordinates(dto.lat, dto.lon),
+            latitude = dto.lat,
+            longitude = dto.lon,
             currentTemp = dto.current.temp.roundToInt(),
             currentWeatherDescription = dto.current.weather[0].description.titleCaseFirstChar(),
             currentWeatherIconURL = getIconURLById(dto.current.weather[0].icon)
@@ -43,6 +45,8 @@ class WeatherMapper(private val context: Context) {
 
         return CityWeather(
             cityName = cityWeather.cityName,
+            latitude = cityWeather.latitude,
+            longitude = cityWeather.longitude,
             currentTemp = getFormattedTemp(cityWeather.currentTemp),
             currentWeatherDescription = cityWeather.currentWeatherDescription,
             currentWeatherIconURL = cityWeather.currentWeatherIconURL,

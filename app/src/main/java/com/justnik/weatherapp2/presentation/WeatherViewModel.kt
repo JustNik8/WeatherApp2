@@ -1,11 +1,12 @@
 package com.justnik.weatherapp2.presentation
 
 import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.google.android.material.snackbar.Snackbar
-import com.justnik.weatherapp2.data.database.model.CityWeatherMainInfoTuple
 import com.justnik.weatherapp2.data.repository.WeatherRepositoryImpl
 import com.justnik.weatherapp2.domain.entities.CityWeather
 import com.justnik.weatherapp2.domain.usecases.CheckInternetAccessUseCase
@@ -45,6 +46,11 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
         scope.launch {
             repository.deleteCityWeather(cityName)
         }
+    }
+
+    fun locateCityIntent(cityWeather: CityWeather): Intent{
+        val addressUri = Uri.parse("geo:0,0?q=${cityWeather.cityName}")
+        return Intent(Intent.ACTION_VIEW, addressUri)
     }
 
 }
