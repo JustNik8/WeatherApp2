@@ -65,10 +65,18 @@ class CityForecastFragment : Fragment() {
         dailyAdapter.submitList(cityWeather.dailyWeather)
     }
 
-    private fun setUpToolBar(){
+    private fun setUpToolBar() {
         val deleteCityItem = binding.toolbarForecastCity.menu.findItem(R.id.action_delete_city)
         deleteCityItem.setOnMenuItemClickListener {
             onDeleteCityListener?.invoke(cityWeather.cityName)
+            true
+        }
+
+        val locateCity = binding.toolbarForecastCity.menu.findItem(R.id.action_locate_city)
+        locateCity.setOnMenuItemClickListener {
+            val intent = viewModel.locateCityIntent(cityWeather)
+            startActivity(intent)
+
             true
         }
 
