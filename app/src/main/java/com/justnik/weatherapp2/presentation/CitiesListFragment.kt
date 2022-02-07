@@ -57,7 +57,7 @@ class CitiesListFragment : Fragment() {
         rvAdapter.onCityItemClickListener = {
             onCityClickListener?.onCityClick(it)
         }
-    }
+            }
 
     private fun observeViewModel(){
         viewModel.getCityWeatherList().observe(viewLifecycleOwner) {
@@ -73,7 +73,7 @@ class CitiesListFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 p0?.let {
-                    viewModel.insertWeatherByCityName(p0)
+                    viewModel.insertWeatherByCityName(p0, rvAdapter.currentList)
                     menuItem.collapseActionView()
                     return true
                 }
@@ -85,7 +85,6 @@ class CitiesListFragment : Fragment() {
             override fun onQueryTextChange(p0: String?): Boolean {
                 return true
             }
-
         })
     }
 

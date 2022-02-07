@@ -16,9 +16,14 @@ interface CityWeatherDao {
     fun getCityWeatherWithDailyWeatherList(): LiveData<List<CityWeatherWithDailyWeather>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCityWeather(CityWeather: CityWeatherDbModel)
+    suspend fun insertCityWeather(CityWeather: CityWeatherDbModel)
 
     @Insert
-    fun insertDailyWeather(dailyWeatherList: List<DailyWeatherDbModel>)
+    suspend fun insertDailyWeather(dailyWeatherList: List<DailyWeatherDbModel>)
 
+    @Query("DELETE FROM city_weather WHERE city_name = :cityName")
+    suspend fun deleteCityWeatherByName(cityName: String)
+
+    @Query("DELETE FROM daily_weather WHERE parent_city_name = :cityName")
+    suspend fun deleteDailyWeatherByName(cityName: String)
 }

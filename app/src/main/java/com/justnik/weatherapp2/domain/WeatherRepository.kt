@@ -8,6 +8,7 @@ import com.justnik.weatherapp2.domain.entities.CityWeather
 
 interface WeatherRepository {
 
-    fun insertCityWeather(dto: WeatherInfoDto)
+    suspend fun insertCityWeather(dto: WeatherInfoDto)
     fun getCityWeatherList(): LiveData<List<CityWeather>>
+    suspend fun deleteCityWeather(cityName: String)
 }
