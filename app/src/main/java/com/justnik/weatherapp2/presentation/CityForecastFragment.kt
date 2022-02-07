@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
+import com.justnik.weatherapp2.R
 import com.justnik.weatherapp2.databinding.FragmentCityForecastBinding
 import com.justnik.weatherapp2.domain.entities.CityWeather
 import com.justnik.weatherapp2.presentation.adapters.dailyforecast.DailyForecastAdapter
@@ -53,6 +54,15 @@ class CityForecastFragment : Fragment() {
 
         rvDailyForecast.adapter = dailyAdapter
         dailyAdapter.submitList(cityWeather.dailyWeather)
+    }
+
+    private fun setUpToolBar(){
+        val deleteCityItem = binding.toolbarForecastCity.menu.findItem(R.id.action_delete_city)
+        deleteCityItem.setOnMenuItemClickListener {
+
+            true
+        }
+
     }
 
     override fun onDestroy() {

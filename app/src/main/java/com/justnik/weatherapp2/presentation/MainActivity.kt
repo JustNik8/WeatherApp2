@@ -11,23 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         launchCitiesListFragment()
-    }
 
-    private fun launchCitiesListFragment(){
-        val fragment = CitiesListFragment.newInstance()
-        observeCityItemClick(fragment)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun launchCityForecastFragment(cityWeather: CityWeather){
-        val fragment = CityForecastFragment.newInstance(cityWeather)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     private fun observeCityItemClick(fragment: CitiesListFragment){
@@ -37,4 +21,34 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun launchCitiesListFragment(){
+        val fragment = CitiesListFragment.newInstance()
+        observeCityItemClick(fragment)
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in, //enter
+                R.anim.fade_out, //exit
+                R.anim.fade_in, //popEnter
+                R.anim.slide_out //popExit
+            )
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun launchCityForecastFragment(cityWeather: CityWeather){
+        val fragment = CityForecastFragment.newInstance(cityWeather)
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in, //enter
+                R.anim.fade_out, //exit
+                R.anim.fade_in, //popEnter
+                R.anim.slide_out //popExit
+            )
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 }
